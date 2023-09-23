@@ -90,7 +90,7 @@ require 'connection.php';
                echo '1';
 
                //login user
-              }else if($stmt2->rowCount() > 0){
+              }else if(password_verify($password,$stmt2->rowCount() > 0)){
                 $_SESSION['userid2'] = htmlentities($row2['id']);
                 $_SESSION['logged_in2'] = true;
                 echo '2';
