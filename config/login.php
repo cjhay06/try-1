@@ -1,6 +1,6 @@
 <?php
 
-  require_once "sample_class.php";
+  require_once "sampleclass.php";
 
   if(ISSET($_POST)){
 
@@ -8,7 +8,7 @@
 
   	    $emailaddress = $_POST['emailaddress'];
   	    $password = $_POST['password'];
-        $conn->login_user($emailaddress, $password);
+        $conn->login($emailaddress, $password,);
    
 
 
