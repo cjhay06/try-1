@@ -30,7 +30,7 @@ require 'connection.php';
 
 
           // registration
-          public function add_user($fullname,$middlename,$lastname, $emailaddress, $username, $password){
+          public function add_user($fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword){
 
              $stmt = $this->pdo->prepare("SELECT * FROM tbl_user WHERE email = ?");
 
@@ -48,7 +48,7 @@ require 'connection.php';
             else { 
                    $role = "user";
                    $stmt = $this->pdo->prepare("INSERT INTO `tbl_user` (`firstname`,`middlename`,`lastname`, `email`, `username`, `password`, `role`)VALUES(?,?,?,?,?,?,?)");
-                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $password, $role]);
+                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword, $role]);
                   if($true == true){
                    	 return true;
 
@@ -72,25 +72,31 @@ require 'connection.php';
               $stmt1 = $this->pdo->prepare("SELECT * FROM `tbl_admin` WHERE `email` = :umail AND `password` = :upass AND `role` = :urole" );
               $stmt1->execute(array(':umail' => $emailaddress,':upass' => $password, ':urole' => 'Admin' ));
               $row = $stmt1->fetch(PDO::FETCH_ASSOC);
+
                 //login user
               $stmt2 = $this->pdo->prepare("SELECT * FROM `tbl_user` WHERE `email` = :umail AND `password` = :upass AND `role` = :urole");
               $stmt2->execute(array(':umail' => $emailaddress, ':upass' => $password, ':urole' => 'User' ));
               $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+
                //login respondent
               $stmt3 = $this->pdo->prepare("SELECT * FROM `tbl_respondent` WHERE `email` = :umail AND `password` = :upass AND `role` = :urole");
               $stmt3->execute(array(':umail' => $emailaddress, ':upass' => $password, ':urole' => 'respondent' ));
               $row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
 
-
+                 //login admin
               if($stmt1->rowCount() > 0){
                 $_SESSION['userid'] = htmlentities($row['id']);
                 $_SESSION['logged_in'] = true;
                echo '1';
+
+               //login user
               }else if($stmt2->rowCount() > 0){
                 $_SESSION['userid2'] = htmlentities($row2['id']);
                 $_SESSION['logged_in2'] = true;
                 echo '2';
 
+
+                 //login respondent
               }else if($stmt3->rowCount() > 0){
                 $_SESSION['userid3'] = htmlentities($row3['id']);
                 $_SESSION['logged_in3'] = true;
@@ -237,7 +243,7 @@ require 'connection.php';
           public function check_email($email_address){
 
          
-          $query = $this->pdo->prepare("SELECT email FROM `tbl_user` WHERE email = ?");
+          $query = $this->pdo->prepare("SELECT email FROM `tbl_user`  WHERE email = ?");
           $query->execute([$email_address]);
           $email = $query->rowCount();
            print($email);  
@@ -245,6 +251,30 @@ require 'connection.php';
 
 
      }
+
+     public function send_email($code, $email){
+
+          $sql = "UPDATE `tbl_user` SET  `code` = ? WHERE email = ?";
+           $update = $this->pdo->prepare($sql)->execute([$code, $email]);
+             if ($update == true) {
+                 return true;
+              } else {
+                 return false;
+            }
+
+         }
+
+       public function change_password($hashpassword, $code){
+           
+          $sql = "UPDATE `tbl_user` SET  `password` = ?, `code` = '' WHERE code = ?";
+           $update = $this->pdo->prepare($sql)->execute([$hashpassword, $code]);
+             if ($update == true) {
+                 return true;
+              } else {
+                 return false;
+            }
+
+         }
 
 
 

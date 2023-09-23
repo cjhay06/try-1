@@ -97,16 +97,24 @@
                   <i class="fas fa-eye d-none" id="show_eye"></i>
                   
                 </span>
-                <span class="pass-error"></span>
+               
               </div>
             </div>
-          </div>                                </div>
-                                 <div class="btn form-controlbtn-user btn-block">
+            <span class="pass-error"></span>
+                      </div> 
+<h6> Password must contain at least one number and one uppercase and one special character, and at least 8 or more characters</h6>
+           <div class="btn form-controlbtn-user btn-block">
                   <button type="button" class="btn btn-primary" value="Submit" id="btn-submit">Submit</button>
                </div>
                <div class="text-center">
                                         <a class="small" href="login">Already have account?</a>
                                     </div>
+          </div>
+
+
+
+
+             
            </form>
                             </div>
                         </div>
