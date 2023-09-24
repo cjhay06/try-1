@@ -2,14 +2,14 @@
    session_start();
   require_once "../config/sampleclass.php";
 
-  if(!isset($_SESSION['logged_in1'])){
+  if(!isset($_SESSION['logged_in2'])){
      
      header("location:index.php");
 
   }else{
    
      $conn = new class_php();
-    $getsessionID = trim($_SESSION['userid1']);
+    $getsessionID = trim($_SESSION['userid2']);
     $user = $conn->fetch_usersessionId($getsessionID);
   
 

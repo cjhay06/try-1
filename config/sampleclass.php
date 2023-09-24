@@ -30,23 +30,11 @@ require 'connection.php';
 
 
           // registration
-          public function add_user($fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword){
+          public function add_user($fullname,$middlename,$lastname, $emailaddress, $username, $password){
 
-             $stmt = $this->pdo->prepare("SELECT * FROM tbl_user WHERE email = ?");
-
-
-           $stmt->execute([$emailaddress]);
-           $result = $stmt->rowCount();
-           if ($result > 0 ) {
-            echo "<div class='alert alert-danger' role='alert' id='email_error'>email already exist</div>";
-             // code...
-           }
            
-
-
-                
-            else { 
                    $role = "user";
+                   $hashpassword = password_hash($password, PASSWORD_DEFAULT);
                    $stmt = $this->pdo->prepare("INSERT INTO `tbl_user` (`firstname`,`middlename`,`lastname`, `email`, `username`, `password`, `role`)VALUES(?,?,?,?,?,?,?)");
                    $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword, $role]);
                   if($true == true){
@@ -57,48 +45,82 @@ require 'connection.php';
              }
 
           }
-        }
+        
 
         // end registration
 
-        //login
+        //login user
 
           public function login($emailaddress, $password){
 
             
+                    session_start();
 
-             //login admin
+              $stmt1 = $this->pdo->prepare("SELECT id, password FROM `tbl_admin` WHERE `email` = :uemail  AND `role` = 'Admin'");
+              $stmt1->bindParam(':uemail', $emailaddress);
+              $stmt1->execute();
+              $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
 
-             
-                //login user
-             $sql = "SELECT * FROM `tbl_user` WHERE `email` = :umail";
-              $stmt2 = $this->pdo->prepare($sql);
-              $stmt2->bindParam(':umail',$emailaddress);
+              $stmt2 = $this->pdo->prepare("SELECT id, password FROM `tbl_user` WHERE `email` = :uemail  AND `role` = 'user'");
+              $stmt2->bindParam(':uemail', $emailaddress);
               $stmt2->execute();
-              $result = $stmt2->fetch(PDO::FETCH_ASSOC);
+              $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
 
-             
+              $stmt3 = $this->pdo->prepare("SELECT id, password FROM `tbl_respondent` WHERE `email` = :uemail  AND `role` = 'respondent'");
+              $stmt3->bindParam(':uemail', $emailaddress);
+              $stmt3->execute();
+              $row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
 
-              
-               //login user
-             if($result && password_verify($password, $result['password']))
-             {
-                 if ($stmt2->rowCount() > 0){
-                $_SESSION['userid1'] = htmlentities($result['id']);
-                $_SESSION['logged_in1'] = true;
-                echo '2';
 
-    
-                exit();
-              }else{
+              if($stmt1->rowCount() > 0){
+                
+                if (password_verify($password, $row1['password'])) {
+                     $_SESSION['userid'] = htmlentities($row1['id']);
+                $_SESSION['logged_in'] = true;
+               echo '1';
+           }else{
+            echo "<div class='alert alert-danger'>Invalid password!</div>";
+           }
+               
+              }else if($stmt2->rowCount() > 0){
+
+                 if (password_verify($password, $row2['password'])){
+                     $_SESSION['userid2'] = htmlentities($row2['id']);
+                $_SESSION['logged_in2'] = true;
+               echo '2';
+
+               }else{
+            echo "<div class='alert alert-danger'>Invalid password!</div>";
+           }
+
+                
+              }
+                   else if($stmt3->rowCount() > 0){
+                
+                if(password_verify($password, $row3['password'])) {
+                     $_SESSION['userid3'] = htmlentities($row3['id']);
+                $_SESSION['logged_in3'] = true;
+               echo '3';
+           }else{
+            echo "<div class='alert alert-danger'>Invalid password!</div>";
+           }
+       }
+
+
+
+
+
+
+       
+               else{
                 echo "<div class='alert alert-danger'>Incorrect Email Address or Password</div>";
               }
+
           }
-      }
-
-       //end login
-
+   //end login user
    
+
+
    // get session ID for admin
 
           public function fetch_adminsessionId($getsessionID){
@@ -143,17 +165,20 @@ require 'connection.php';
            // registration for admin
           public function add_admin($fullname,$middlename,$lastname, $emailaddress, $username, $password){
 
+                  
                    $role = "admin";
-
+                   $hashpassword = password_hash($password, PASSWORD_DEFAULT);
                    $stmt = $this->pdo->prepare("INSERT INTO `tbl_admin` (`firstname`,`middlename`,`lastname`, `email`, `username`, `password`, `role`)VALUES(?,?,?,?,?,?,?)");
-                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $password, $role]);
+                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword, $role]);
                   if($true == true){
                      return true;
+
                    }else{
                       return false;
              }
 
           }
+        
 
         // end registration for admin
 
@@ -163,17 +188,18 @@ require 'connection.php';
           public function add_respondent($fullname,$middlename,$lastname, $emailaddress, $username, $password){
 
                    $role = "respondent";
-
+                   $hashpassword = password_hash($password, PASSWORD_DEFAULT);
                    $stmt = $this->pdo->prepare("INSERT INTO `tbl_respondent` (`firstname`,`middlename`,`lastname`, `email`, `username`, `password`, `role`)VALUES(?,?,?,?,?,?,?)");
-                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $password, $role]);
+                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword, $role]);
                   if($true == true){
                      return true;
+
                    }else{
                       return false;
              }
 
           }
-
+        
         // end registration for Respondent
 
 
@@ -252,7 +278,8 @@ require 'connection.php';
 
          }
 
-       public function change_password($hashpassword, $code){
+       public function change_password($password, $code){
+          $hashpassword = password_hash($password, PASSWORD_DEFAULT);
            
           $sql = "UPDATE `tbl_user` SET  `password` = ?, `code` = '' WHERE code = ?";
            $update = $this->pdo->prepare($sql)->execute([$hashpassword, $code]);

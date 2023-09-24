@@ -13,10 +13,10 @@
 
   	    $username = $_POST['username'];
   	    $password = $_POST['password'];
-        $hashpassword = password_hash($password, PASSWORD_DEFAULT);
+       
 
 
-        $add = $conn->add_user($fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword);
+        $add = $conn->add_user($fullname,$middlename,$lastname, $emailaddress, $username, $password);
          
          if($add == TRUE){
          	echo "<div class='alert alert-success' role='alert' id='msg'>Added Member Successfully</div><script> setTimeout(function(){location.replace('login.php');}, 1000);</script>";
