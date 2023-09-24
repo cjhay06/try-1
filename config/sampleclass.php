@@ -65,48 +65,36 @@ require 'connection.php';
 
           public function login($emailaddress, $password){
 
-             session_start();
+            
 
              //login admin
 
-              $stmt1 = $this->pdo->prepare("SELECT * FROM `tbl_admin` WHERE `email` = :umail AND `password` = :upass AND `role` = :urole" );
-              $stmt1->execute(array(':umail' => $emailaddress,':upass' => $password, ':urole' => 'Admin' ));
-              $row = $stmt1->fetch(PDO::FETCH_ASSOC);
-
+             
                 //login user
-              $stmt2 = $this->pdo->prepare("SELECT * FROM `tbl_user` WHERE `email` = :umail AND `password` = :upass AND `role` = :urole");
-              $stmt2->execute(array(':umail' => $emailaddress, ':upass' => $password, ':urole' => 'User' ));
-              $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+             $sql = "SELECT * FROM `tbl_user` WHERE `email` = :umail";
+              $stmt2 = $this->pdo->prepare($sql);
+              $stmt2->bindParam(':umail',$emailaddress);
+              $stmt2->execute();
+              $result = $stmt2->fetch(PDO::FETCH_ASSOC);
 
-               //login respondent
-              $stmt3 = $this->pdo->prepare("SELECT * FROM `tbl_respondent` WHERE `email` = :umail AND `password` = :upass AND `role` = :urole");
-              $stmt3->execute(array(':umail' => $emailaddress, ':upass' => $password, ':urole' => 'respondent' ));
-              $row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
+             
 
-                 //login admin
-              if($stmt1->rowCount() > 0){
-                $_SESSION['userid'] = htmlentities($row['id']);
-                $_SESSION['logged_in'] = true;
-               echo '1';
-
+              
                //login user
-              }else if(password_verify($password,$stmt2->rowCount() > 0)){
-                $_SESSION['userid2'] = htmlentities($row2['id']);
-                $_SESSION['logged_in2'] = true;
+             if($result && password_verify($password, $result['password']))
+             {
+                 if ($stmt2->rowCount() > 0){
+                $_SESSION['userid1'] = htmlentities($result['id']);
+                $_SESSION['logged_in1'] = true;
                 echo '2';
 
-
-                 //login respondent
-              }else if($stmt3->rowCount() > 0){
-                $_SESSION['userid3'] = htmlentities($row3['id']);
-                $_SESSION['logged_in3'] = true;
-                echo '3';
-                
+    
                 exit();
               }else{
                 echo "<div class='alert alert-danger'>Incorrect Email Address or Password</div>";
               }
           }
+      }
 
        //end login
 
