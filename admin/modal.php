@@ -7,7 +7,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-       <form method="POST">
+       <form method="POST" enctype="multipart/form-data">
               <div id="msg"></div>
 
               <div class="form-group">
@@ -43,6 +43,11 @@
                   <input type="password" class="form-control" id="password" alt="password" placeholder="Please enter Password" autocomplete="off">
                     <span class="pass-error"></span>
                </div>
+               <div class="form-group">
+                <label for="image">Upload Photo</label>
+                <input type="file" class="form-control-file" id="image" name="image" alt="image"  accept=".jpg, .jpeg, .png">
+                 <span class="image-error"></span>
+            </div>
 
                
 
@@ -90,6 +95,9 @@
               const password = document.querySelector('input[alt=password]').value;
               console.log('==========password==========')
               console.log(password);
+              const image = document.querySelector('input[alt=image]').value;
+              console.log('==========image==========')
+              console.log(image);
 
 
           function isValidFullname(){            
@@ -278,23 +286,44 @@ last_name             }else if(last_name === ""){
                 }
               }
 
+              function isValidPhoto(){
+                if($("#image").val() === ""){
+                  
+
+                    $($("#image")).addClass("is-invalid");
+                    $(".image-error").html("Required Photo");
+                    $(".image-error").css({"color" : "red", "font-size" : "14px"})
+                  return false;
+
+                 }else{
+
+                   $("#image").removeClass("is-invalid").addClass("is-valid");
+                   $(".image-error").html("");
+
+                  return true;
+           
+                }
+              }
+
 
             isValidFullname();
             isValidEmail();
             isValidUsername();
             isValidPassword();
+            isValidPhoto();
 
             var data = new FormData(this.form);
 
             data.append('fullname', fullname);
             data.append('middlename', middlename);
             data.append('lastname', lastname);
-            data.append('emailaddress', emailaddress)
-            data.append('username', username)
-            data.append('password', password)
+            data.append('emailaddress', emailaddress);
+            data.append('username', username);
+            data.append('password', password);
+            data.append('image', image);
 
 
-            if(isValidFullname() === true  &&isValidmiddlename() === true  &&isValidlastname() === true  && isValidEmail() === true && isValidUsername() === true && isValidPassword() === true){
+            if(isValidFullname() === true  &&isValidmiddlename() === true  &&isValidlastname() === true  && isValidEmail() === true && isValidUsername() === true && isValidPassword() === true && isValidPhoto() === true){
 
                  $.ajax({
 
