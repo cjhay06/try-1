@@ -56,7 +56,7 @@
 
                <div class="form-group">
                  <label>Insert Code</label>
-                  <input type="text" class="form-control" id="code" name="code"  placeholder="Please enter Code" onkeyup="numberonly(this)" maxlength="6" required>
+                  <input type="text" class="form-control" id="codes" name="codes"  placeholder="Please enter Code" onkeyup="numberonly(this)" maxlength="6" required>
                   <span class="code-error"></span>
                </div>
                <div class="form-group mt-2">
@@ -85,16 +85,16 @@
           btn.addEventListener('click', (event) => {
               event.preventDefault();
 
-              const code = document.querySelector('input[id=code]').value;
+              const codes = document.querySelector('input[id=codes]').value;
               console.log('==========code==========')
-              console.log(code);
+              console.log(codes);
 
 
            function isValidCode(){
              
                  var pattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
-                 var code = $("#code").val();
-                 if(pattern.test(code) && code !== ""){
+                 var codes = $("#codes").val();
+                 if(pattern.test(codes) && codes !== ""){
                     $("#code").removeClass("is-invalid").addClass("is-valid");
                     $(".code-error").css({
                      "color": "green",
@@ -103,7 +103,7 @@
                    });
                     return true;
 
-                 }else if(code === ""){
+                 }else if(codes === ""){
                    $("#code").removeClass("is-valid").addClass("is-invalid");
                    $(".code-error").html("Required code");
                      $(".code-error").css({
@@ -130,7 +130,7 @@
 
             var data = new FormData(this.form);
 
-            data.append('code', code)
+            data.append('codes', codes)
 
 
             if(isValidCode() === true){

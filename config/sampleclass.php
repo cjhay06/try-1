@@ -304,7 +304,7 @@ require 'connection.php';
 
 
             
-            public function send_code($otp){
+            public function send_code($codes){
 
                 $sql = "UPDATE `tbl_user` SET  `status` = 1";
                $update = $this->pdo->prepare($sql)->execute([$otp]);
