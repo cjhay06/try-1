@@ -270,44 +270,60 @@ require 'connection.php';
      }
 
 
-     // Sending code in db
-     public function send_email($code, $email){
+         // Sending code in db
+         public function send_email($code, $email){
 
-          $sql = "UPDATE `tbl_user` SET  `code` = ? WHERE email = ?";
-           $update = $this->pdo->prepare($sql)->execute([$code, $email]);
-             if ($update == true) {
-                 return true;
-              } else {
-                 return false;
+              $sql = "UPDATE `tbl_user` SET  `code` = ? WHERE email = ?";
+               $update = $this->pdo->prepare($sql)->execute([$code, $email]);
+                 if ($update == true) {
+                     return true;
+                  } else {
+                     return false;
+                }
+
+             }
+             // end of Sending code in db
+
+
+              // Change password
+           public function change_password($password, $code){
+              $hashpassword = password_hash($password, PASSWORD_DEFAULT);
+               
+              $sql = "UPDATE `tbl_user` SET  `password` = ?, `code` = '' WHERE code = ?";
+               $update = $this->pdo->prepare($sql)->execute([$hashpassword, $code]);
+                 if ($update == true) {
+                     return true;
+                  } else {
+                     return false;
+                }
+
+             }
+             // end of Change password
+
+
+
+
+            
+            public function send_code($otp){
+
+                $sql = "UPDATE `tbl_user` SET  `status` = 1";
+               $update = $this->pdo->prepare($sql)->execute([$otp]);
+                 if ($update == true) {
+                     return true;
+                  } else {
+                     return false;
+                }
+               if ($update == true) {
+                     return true;
+                  } else {
+                     return false;
+                }
+
+
             }
+          
 
-         }
-         // end of Sending code in db
-
-
-          // Change password
-       public function change_password($password, $code){
-          $hashpassword = password_hash($password, PASSWORD_DEFAULT);
-           
-          $sql = "UPDATE `tbl_user` SET  `password` = ?, `code` = '' WHERE code = ?";
-           $update = $this->pdo->prepare($sql)->execute([$hashpassword, $code]);
-             if ($update == true) {
-                 return true;
-              } else {
-                 return false;
-            }
-
-         }
-         // end of Change password
-
-
-
-
-
-
-
+        
 
 }
-
-
  ?>
