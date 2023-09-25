@@ -163,13 +163,16 @@ require 'connection.php';
 
 
            // registration for admin
-          public function add_admin($fullname,$middlename,$lastname, $emailaddress, $username, $password){
+          public function add_admin($fullname,$middlename,$lastname, $emailaddress, $username, $password,  $image){
 
                   
                    $role = "admin";
                    $hashpassword = password_hash($password, PASSWORD_DEFAULT);
-                   $stmt = $this->pdo->prepare("INSERT INTO `tbl_admin` (`firstname`,`middlename`,`lastname`, `email`, `username`, `password`, `role`)VALUES(?,?,?,?,?,?,?)");
-                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword, $role]);
+                   $stmt = $this->pdo->prepare("INSERT INTO `tbl_admin` (`firstname`,`middlename`,`lastname`, `email`, `username`, `password`,`photo`, `role`)VALUES(?,?,?,?,?,?,?,?)");
+                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword, $image, $role]);
+
+
+                 
                   if($true == true){
                      return true;
 
@@ -266,6 +269,8 @@ require 'connection.php';
 
      }
 
+
+     // Sending code in db
      public function send_email($code, $email){
 
           $sql = "UPDATE `tbl_user` SET  `code` = ? WHERE email = ?";
@@ -277,7 +282,10 @@ require 'connection.php';
             }
 
          }
+         // end of Sending code in db
 
+
+          // Change password
        public function change_password($password, $code){
           $hashpassword = password_hash($password, PASSWORD_DEFAULT);
            
@@ -290,6 +298,7 @@ require 'connection.php';
             }
 
          }
+         // end of Change password
 
 
 

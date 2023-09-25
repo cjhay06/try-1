@@ -12,9 +12,12 @@
   	    $emailaddress = $_POST['emailaddress'];
   	    $username = $_POST['username'];
   	    $password = $_POST['password'];
+        $image = $_POST['image'];
 
+          
 
-        $add = $conn->add_admin($fullname,$middlename,$lastname, $emailaddress, $username, $password);
+      
+       $add = $conn->add_admin($fullname,$middlename,$lastname, $emailaddress, $username, $password, $image);
          
          if($add == TRUE){
          	echo "<div class='alert alert-success' role='alert' id='msg'>Added Admin Successfully</div><script> setTimeout(function(){location.replace('../admin/home.php');}, 1000);</script>";
