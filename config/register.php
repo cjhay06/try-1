@@ -18,6 +18,7 @@
 
   	    $username = $_POST['username'];
   	    $password = $_POST['password'];
+        
 
         $otp = rand(100000,999999);
          $add = $conn->add_user($fullname,$middlename,$lastname, $emailaddress, $username, $password,$otp);

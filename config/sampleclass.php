@@ -34,11 +34,11 @@ require 'connection.php';
           // registration
           public function add_user($fullname,$middlename,$lastname, $emailaddress, $username, $password, $otp){
 
-           
+                    $status = 0;
                    $role = "user";
                    $hashpassword = password_hash($password, PASSWORD_DEFAULT);
-                   $stmt = $this->pdo->prepare("INSERT INTO `tbl_user` (`firstname`,`middlename`,`lastname`, `email`, `username`, `password`,`otp`, `role`)VALUES(?,?,?,?,?,?,?,?)");
-                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword,$otp, $role]);
+                   $stmt = $this->pdo->prepare("INSERT INTO `tbl_user` (`firstname`,`middlename`,`lastname`, `email`, `username`, `password`,`otp`, `role`,`status`)VALUES(?,?,?,?,?,?,?,?,?)");
+                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword,$otp, $role,$status]);
                   if($true == true){
                    	 return true;
 
@@ -303,27 +303,24 @@ require 'connection.php';
              // end of Change password
 
 
-            // get code
-            public function send_code($codes, $email, $otp_code){
-                 if($codes != $otp_code){
-                     echo "<div class='alert alert-danger'>Incorrect code!</div>";
-                } else{
-          
-                $sql1 = "UPDATE `tbl_user` SET  `status` = 1, `otp` = '' WHERE email = ? ";
-               $update = $this->pdo->prepare($sql1)->execute([$codes,$email,$otp_code]);
+            // status set to = 1
+            public function send_code($codes){
+             
+               
+              $sql = "UPDATE `tbl_user` SET  `status` = 1, `otp` = '' WHERE otp = ?";
+               $update = $this->pdo->prepare($sql)->execute([$code]);
                  if ($update == true) {
                      return true;
                   } else {
-
                      return false;
                 }
-             
 
+                }
 
-            }
-        }
+                 // End of verification
+        
 
-
+        // insert otp code in database
         public function sending_code($otp){
 
           $sql = "UPDATE `tbl_user` SET  `otp` = ?";
@@ -335,6 +332,7 @@ require 'connection.php';
             }
 
          }
+         // end of insert otp code in database
 
             
 

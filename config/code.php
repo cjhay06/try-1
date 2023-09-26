@@ -7,12 +7,12 @@
       $conn = new class_php();
 
  
-                $otp_code = $_POST['otp_code'];
-                $email = $_SESSION['mail'];
-       
+               
+                    
                 $codes = htmlentities(strip_tags(stripcslashes(trim($_POST['codes']))));
+                 
 
-        $sending = $conn->send_code($otp,$otp_code,$email);
+        $sending = $conn->send_code($codes);
          
          if($sending == TRUE){
           echo "<div class='alert alert-success' role='alert' id='msg'>Verification Successful </div><script> setTimeout(function(){location.replace('login.php');}, 1000);</script>";
