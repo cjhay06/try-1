@@ -20,11 +20,7 @@
   	    $password = $_POST['password'];
 
         $otp = rand(100000,999999);
-        
-       
-
-
-        $add = $conn->add_user($fullname,$middlename,$lastname, $emailaddress, $username, $password);
+         $add = $conn->add_user($fullname,$middlename,$lastname, $emailaddress, $username, $password,$otp);
          
         
           $mail = new PHPMailer(true);
@@ -51,9 +47,7 @@
 
             if(!$mail->send()){
 
-               $send = $conn->send_email($otp);
-                              
-                                  
+                                              
                                        echo '<div class="alert alert-success">Send Link Successfully!</div><script> setTimeout(function() {  location.replace("verification.php"); }, 1000); </script>';
                                
                             }else{

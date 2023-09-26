@@ -57,7 +57,7 @@
                <div class="form-group">
                  <label>Insert Code</label>
                   <input type="text" class="form-control" id="codes" name="codes"  placeholder="Please enter Code" onkeyup="numberonly(this)" maxlength="6" required>
-                  <span class="code-error"></span>
+                  <span class="codes-error"></span>
                </div>
                <div class="form-group mt-2">
                   <button type="button" class="btn btn-primary" id="btn-code" style="float: right;">Submit</button>
@@ -95,8 +95,8 @@
                  var pattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
                  var codes = $("#codes").val();
                  if(pattern.test(codes) && codes !== ""){
-                    $("#code").removeClass("is-invalid").addClass("is-valid");
-                    $(".code-error").css({
+                    $("#codes").removeClass("is-invalid").addClass("is-valid");
+                    $(".codes-error").css({
                      "color": "green",
                      "font-size": "14px",
                      "display": "none"
@@ -104,16 +104,16 @@
                     return true;
 
                  }else if(codes === ""){
-                   $("#code").removeClass("is-valid").addClass("is-invalid");
-                   $(".code-error").html("Required code");
-                     $(".code-error").css({
+                   $("#codes").removeClass("is-valid").addClass("is-invalid");
+                   $(".codes-error").html("Required code");
+                     $(".codes-error").css({
                        "color": "red",
                        "font-size": "14px"
                      });
                  }else{
-                   $("#code").removeClass("is-valid").addClass("is-invalid");
-                   $(".code-error").html("Incorrect Code");
-                     $(".code-error").css({
+                   $("#codes").removeClass("is-valid").addClass("is-invalid");
+                   $(".codes-error").html("Incorrect Code");
+                     $(".codes-error").css({
                      "color": "red",
                      "font-size": "14px",
                      "display": "block"

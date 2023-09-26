@@ -29,14 +29,16 @@ require 'connection.php';
         }
 
 
+
+
           // registration
-          public function add_user($fullname,$middlename,$lastname, $emailaddress, $username, $password){
+          public function add_user($fullname,$middlename,$lastname, $emailaddress, $username, $password, $otp){
 
            
                    $role = "user";
                    $hashpassword = password_hash($password, PASSWORD_DEFAULT);
-                   $stmt = $this->pdo->prepare("INSERT INTO `tbl_user` (`firstname`,`middlename`,`lastname`, `email`, `username`, `password`, `role`)VALUES(?,?,?,?,?,?,?)");
-                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword, $role]);
+                   $stmt = $this->pdo->prepare("INSERT INTO `tbl_user` (`firstname`,`middlename`,`lastname`, `email`, `username`, `password`,`otp`, `role`)VALUES(?,?,?,?,?,?,?,?)");
+                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword,$otp, $role]);
                   if($true == true){
                    	 return true;
 
@@ -301,27 +303,27 @@ require 'connection.php';
              // end of Change password
 
 
-
-
-            
-            public function send_code($codes){
-
-                $sql = "UPDATE `tbl_user` SET  `status` = 1";
-               $update = $this->pdo->prepare($sql)->execute([$otp]);
+            // get code
+            public function send_code($codes, $email, $otp_code){
+                 if($codes != $otp_code){
+                     echo "<div class='alert alert-danger'>Incorrect pass!</div>";
+                } else{
+          
+                $sql1 = "UPDATE `tbl_user` SET  `status` = 1, `otp` = '' WHERE email = ? ";
+               $update = $this->pdo->prepare($sql1)->execute([$codes,$email]);
                  if ($update == true) {
                      return true;
                   } else {
+
                      return false;
                 }
-               if ($update == true) {
-                     return true;
-                  } else {
-                     return false;
-                }
+             
 
 
             }
-          
+        }
+
+            
 
         
 
