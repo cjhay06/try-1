@@ -24,7 +24,7 @@
          
         
           $mail = new PHPMailer(true);
-         if($add){
+         try{
             //Server settings
           //  $mail->SMTPDebug = SMTP::DEBUG_SERVER;                    //Enable verbose debug output
             $mail->isSMTP();                                            //Send using SMTP
@@ -42,22 +42,23 @@
             //Content
                 $mail->isHTML(true);                                  //Set email format to HTML
                 $mail->Subject = "Your email confirmation code";
-                $mail->Body    =  "<h1>Hello! <span><b>$fullname $lastname</b></span> </h1> <h3><b> Use this code to verify your email address on System.</h3></b>  <h3>This code can only be used once. If you did not request a code, ignore this email.
+                $mail->Body    = "<h1>Hello! <span><b>$fullname $lastname</b></span> </h1> <h3><b> Use this code to verify your email address on System.</h3></b>  <h3>This code can only be used once. If you did not request a code, ignore this email.
                      Never share this code with anyone else.</h3> <h2>Confirmation code:</h2>  <h1>$otp </h1>";
+              $mail->send();
+                echo '';
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+           }
 
-            if(!$mail->send()){
+            $send = $conn->sending_code($otp);
+          if($send == TRUE){
+              echo '<div class="alert alert-success">Verification Code Successfully Send!</div><script> setTimeout(function() {  location.replace("verification.php"); }, 1000); </script>';
 
-                                              
-                                       echo '<div class="alert alert-success">Send Link Successfully!</div><script> setTimeout(function() {  location.replace("verification.php"); }, 1000); </script>';
-                               
-                            }else{
-                               
-                                  echo '<div class="alert alert-success">Send Link Successfully!</div><script> setTimeout(function() {  location.replace("verification.php"); }, 1000); </script>';
-                               
-                            }
+            }else{
+              echo '<div class="alert alert-danger">Verification Code Failed to Send!</div><script> setTimeout(function() {  location.replace("verification.php"); }, 1000); </script>';
 
-
-     }
+        
+           }
    }
 
  ?>

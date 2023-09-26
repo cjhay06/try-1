@@ -306,11 +306,11 @@ require 'connection.php';
             // get code
             public function send_code($codes, $email, $otp_code){
                  if($codes != $otp_code){
-                     echo "<div class='alert alert-danger'>Incorrect pass!</div>";
+                     echo "<div class='alert alert-danger'>Incorrect code!</div>";
                 } else{
           
                 $sql1 = "UPDATE `tbl_user` SET  `status` = 1, `otp` = '' WHERE email = ? ";
-               $update = $this->pdo->prepare($sql1)->execute([$codes,$email]);
+               $update = $this->pdo->prepare($sql1)->execute([$codes,$email,$otp_code]);
                  if ($update == true) {
                      return true;
                   } else {
@@ -322,6 +322,19 @@ require 'connection.php';
 
             }
         }
+
+
+        public function sending_code($otp){
+
+          $sql = "UPDATE `tbl_user` SET  `otp` = ?";
+           $update = $this->pdo->prepare($sql)->execute([$otp]);
+             if ($update == true) {
+                 return true;
+              } else {
+                 return false;
+            }
+
+         }
 
             
 

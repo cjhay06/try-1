@@ -6,13 +6,13 @@
 
       $conn = new class_php();
 
-        $codes = htmlentities(strip_tags(stripcslashes(trim($_POST['codes']))));
-        $email = $_SESSION['mail'];
-        $otp_code = $_POST['otp_code'];
+ 
+                $otp_code = $_POST['otp_code'];
+                $email = $_SESSION['mail'];
        
+                $codes = htmlentities(strip_tags(stripcslashes(trim($_POST['codes']))));
 
-
-        $sending = $conn->send_code($codes,$email,$otp_code);
+        $sending = $conn->send_code($otp,$otp_code,$email);
          
          if($sending == TRUE){
           echo "<div class='alert alert-success' role='alert' id='msg'>Verification Successful </div><script> setTimeout(function(){location.replace('login.php');}, 1000);</script>";

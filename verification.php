@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -56,7 +57,7 @@
 
                <div class="form-group">
                  <label>Insert Code</label>
-                  <input type="text" class="form-control" id="codes" name="codes"  placeholder="Please enter Code" onkeyup="numberonly(this)" maxlength="6" required>
+                  <input type="text" class="form-control" id="codes" name="otp_code"  placeholder="Please enter Code" onkeyup="numberonly(this)" maxlength="6" required>
                   <span class="codes-error"></span>
                </div>
                <div class="form-group mt-2">
