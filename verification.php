@@ -1,4 +1,9 @@
+<?php
+  
+  $getcode = $_GET['code'];
 
+
+ ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -16,7 +21,7 @@
 
   <div class="container mt-3"> 
    <div class="card">
-    <div class="card-body">
+    <div class="card-body"> 
 
       <div class="row">
 
@@ -35,6 +40,9 @@
          <div class="card">
            <div class="card-header">Insert Code</div>
            <div class="card-body">
+
+
+     
              <form method="POST" id="logform">
 
               <div id="msg"></div>
@@ -54,18 +62,30 @@
                      </div>
                </div>
 
+     
+   
+
+
 
                <div class="form-group">
                  <label>Insert Code</label>
-                  <input type="text" class="form-control" id="codes" name="codes"  placeholder="Please enter Code" onkeyup="numberonly(this)" maxlength="6" required>
+
+
+                  <input type="text" class="form-control" id="codes" value="" name="codes"  placeholder="Please enter Code"   required>
                   <span class="codes-error"></span>
+                                 <div class="form-group mt-2">
+
+                <input type="hidden" name="code" id="code" class="form-control" value="<?php echo $getcode;?>">
+
+                 
+               </div>
                </div>
                <div class="form-group mt-2">
                   <button type="button" class="btn btn-primary" id="btn-code" style="float: right;">Submit</button>
                </div>
 
             </form>
-
+   
            </div>
          </div>
         </div>
@@ -88,9 +108,17 @@
           btn.addEventListener('click', (event) => {
               event.preventDefault();
 
+
+
               const codes = document.querySelector('input[id=codes]').value;
               console.log('==========code==========')
               console.log(codes);
+
+
+              //  const code = document.querySelector('input[id=code]').value;
+              // console.log('==========code==========')
+              // console.log(code);
+
 
 
            function isValidCode(){
@@ -134,6 +162,7 @@
             var data = new FormData(this.form);
 
             data.append('codes', codes)
+             // data.append('code', code)
 
 
             if(isValidCode() === true){
