@@ -607,28 +607,12 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-<<<<<<< HEAD
-        <h1>master aguibay</h1>
-        <h1>senpai</h1>
-        <h1>jsxnjwnx</h1>
 
 
 
 
 
 
-
-
-
-
-
-
-
-        ujujijceciefc
-        
-=======
-  
->>>>>>> ff5977530a45d00a4e3296842021dd7f0b3f698c
 
 
 
