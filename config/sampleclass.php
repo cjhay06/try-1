@@ -32,13 +32,13 @@ require 'connection.php';
 
 
           // registration
-          public function add_user($fullname,$middlename,$lastname, $emailaddress, $username, $password, $otp){
+          public function add_user($fullname,$middlename,$lastname, $emailaddress, $username, $password, $otp,$code){
 
                     $status = 0;
                    $role = "user";
                    $hashpassword = password_hash($password, PASSWORD_DEFAULT);
-                   $stmt = $this->pdo->prepare("INSERT INTO `tbl_user` (`firstname`,`middlename`,`lastname`, `email`, `username`, `password`,`otp`, `role`,`status`)VALUES(?,?,?,?,?,?,?,?,?)");
-                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword,$otp, $role,$status]);
+                   $stmt = $this->pdo->prepare("INSERT INTO `tbl_user` (`firstname`,`middlename`,`lastname`, `email`, `username`, `password`,`otp`,`code`, `role`,`status`)VALUES(?,?,?,?,?,?,?,?,?,?)");
+                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword,$otp,$code, $role,$status]);
                   if($true == true){
                    	 return true;
 
@@ -303,25 +303,10 @@ require 'connection.php';
              // end of Change password
 
 
-            // status set to = 1
-            public function recover($code){
-           
-            $query = $this->pdo->prepare("SELECT * FROM `tbl_user` WHERE `otp` =  ?");
-
-               $query->execute([$code]);
-               return $query->fetchAll();
-               
-           
-
-                }
-
-                 // End of verification
-        
-
-        // insert otp code in database
+                  // insert otp code in database
         public function sending_code($otp,$code){
 
-          $sql = "UPDATE `tbl_user` SET  `otp` = ? WHERE   `code` = ? " ;
+          $sql = "UPDATE `tbl_user` SET  `otp` = ? WHERE   code = ? " ;
            $update = $this->pdo->prepare($sql)->execute([$otp,$code]);
              if ($update == true) {
                  return true;
@@ -331,6 +316,29 @@ require 'connection.php';
 
          }
          // end of insert otp code in database
+
+
+
+
+
+            // update or verify email status set to = 1
+            public function verify($otp, $code){
+              $sql = "UPDATE `tbl_user` SET  `status` = 1, `otp` = '' WHERE code = ?";
+               $update = $this->pdo->prepare($sql)->execute([$otp, $code]);
+                 if ($update == true) {
+                     return true;
+                  } else {
+                     return false;
+                }
+               
+           
+
+                }
+
+                 // End of verification
+        
+
+      
 
 
 

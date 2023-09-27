@@ -71,8 +71,8 @@
                  <label>Insert Code</label>
 
 
-                  <input type="text" class="form-control" id="codes" value="" name="codes"  placeholder="Please enter Code"   required>
-                  <span class="codes-error"></span>
+                  <input type="text" class="form-control" id="otp" value="" name="otp"  placeholder="Please enter Code"   required>
+                  <span class="otp-error"></span>
                                  <div class="form-group mt-2">
 
                 <input type="hidden" name="code" id="code" class="form-control" value="<?php echo $getcode;?>">
@@ -110,41 +110,41 @@
 
 
 
-              const codes = document.querySelector('input[id=codes]').value;
+              const otp = document.querySelector('input[id=otp]').value;
+              console.log('==========otp==========')
+              console.log(otp);
+
+
+               const code = document.querySelector('input[id=code]').value;
               console.log('==========code==========')
-              console.log(codes);
-
-
-              //  const code = document.querySelector('input[id=code]').value;
-              // console.log('==========code==========')
-              // console.log(code);
+              console.log(code);
 
 
 
            function isValidCode(){
              
                  var pattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
-                 var codes = $("#codes").val();
-                 if(pattern.test(codes) && codes !== ""){
-                    $("#codes").removeClass("is-invalid").addClass("is-valid");
-                    $(".codes-error").css({
+                 var otp = $("#otp").val();
+                 if(pattern.test(otp) && otp !== ""){
+                    $("#otp").removeClass("is-invalid").addClass("is-valid");
+                    $(".otp-error").css({
                      "color": "green",
                      "font-size": "14px",
                      "display": "none"
                    });
                     return true;
 
-                 }else if(codes === ""){
-                   $("#codes").removeClass("is-valid").addClass("is-invalid");
-                   $(".codes-error").html("Required code");
-                     $(".codes-error").css({
+                 }else if(otp === ""){
+                   $("#otp").removeClass("is-valid").addClass("is-invalid");
+                   $(".otp-error").html("Required code");
+                     $(".otp-error").css({
                        "color": "red",
                        "font-size": "14px"
                      });
                  }else{
-                   $("#codes").removeClass("is-valid").addClass("is-invalid");
-                   $(".codes-error").html("Incorrect Code");
-                     $(".codes-error").css({
+                   $("#otp").removeClass("is-valid").addClass("is-invalid");
+                   $(".otp-error").html("Incorrect Code");
+                     $(".otp-error").css({
                      "color": "red",
                      "font-size": "14px",
                      "display": "block"
@@ -161,8 +161,8 @@
 
             var data = new FormData(this.form);
 
-            data.append('codes', codes)
-             // data.append('code', code)
+            data.append('otp', otp)
+            data.append('code', code)
 
 
             if(isValidCode() === true){
