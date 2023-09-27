@@ -304,16 +304,14 @@ require 'connection.php';
 
 
             // status set to = 1
-            public function send_code($codes){
-             
+            public function recover($code){
+           
+            $query = $this->pdo->prepare("SELECT * FROM `tbl_user` WHERE `otp` =  ?");
+
+               $query->execute([$code]);
+               return $query->fetchAll();
                
-              $sql = "UPDATE `tbl_user` SET  `status` = 1, `otp` = '' WHERE otp = ?";
-               $update = $this->pdo->prepare($sql)->execute([$code]);
-                 if ($update == true) {
-                     return true;
-                  } else {
-                     return false;
-                }
+           
 
                 }
 
@@ -321,10 +319,10 @@ require 'connection.php';
         
 
         // insert otp code in database
-        public function sending_code($otp){
+        public function sending_code($otp,$code){
 
-          $sql = "UPDATE `tbl_user` SET  `otp` = ?";
-           $update = $this->pdo->prepare($sql)->execute([$otp]);
+          $sql = "UPDATE `tbl_user` SET  `otp` = ? WHERE   `code` = ? " ;
+           $update = $this->pdo->prepare($sql)->execute([$otp,$code]);
              if ($update == true) {
                  return true;
               } else {
@@ -334,7 +332,7 @@ require 'connection.php';
          }
          // end of insert otp code in database
 
-            
+
 
         
 

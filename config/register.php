@@ -21,7 +21,9 @@
         
 
         $otp = rand(100000,999999);
-         $add = $conn->add_user($fullname,$middlename,$lastname, $emailaddress, $username, $password,$otp);
+        $code = md5(rand());
+
+         $add = $conn->add_user($fullname,$middlename,$lastname, $emailaddress, $username, $password,$otp,$code);
          
         
           $mail = new PHPMailer(true);
@@ -43,15 +45,14 @@
             //Content
                 $mail->isHTML(true);                                  //Set email format to HTML
                 $mail->Subject = "Your email confirmation code";
-                $mail->Body    = "<h1>Hello! <span><b>$fullname $lastname</b></span> </h1> <h3><b> Use this code to verify your email address on System.</h3></b>  <h3>This code can only be used once. If you did not request a code, ignore this email.
-                     Never share this code with anyone else.</h3> <h2>Confirmation code:</h2>  <h1>$otp </h1>";
+                $mail->Body    =  'Hi there,<br/><br/>Forgot your password?<br/><br/>To reset your password, click a link below:<br/><b><a href="http://localhost/try-1/verification.php?code='.$code.'">Password Reset Link</a></b><br/><br/>Otherwise, if you did not make this request then please ignore this email.';
               $mail->send();
                 echo '';
             } catch (Exception $e) {
                 echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
            }
 
-            $send = $conn->sending_code($otp);
+            $send = $conn->sending_code($otp,$code);
           if($send == TRUE){
               echo '<div class="alert alert-success">Verification Code Successfully Send!</div><script> setTimeout(function() {  location.replace("verification.php"); }, 1000); </script>';
 
