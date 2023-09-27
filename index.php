@@ -614,12 +614,6 @@
 
 
 
-bobo ni mick
-
-
-pogi ako
-
-pogi 
 
     
     </body>
