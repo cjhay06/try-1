@@ -32,13 +32,13 @@ require 'connection.php';
 
 
           // registration
-          public function add_user($fullname,$middlename,$lastname, $emailaddress, $username, $password, $otp,$code){
+          public function add_user($fullname,$middlename,$lastname, $emailaddress, $username, $password,$otp,$code,$photo){
 
                     $status = 0;
                    $role = "user";
                    $hashpassword = password_hash($password, PASSWORD_DEFAULT);
-                   $stmt = $this->pdo->prepare("INSERT INTO `tbl_user` (`firstname`,`middlename`,`lastname`, `email`, `username`, `password`,`otp`,`code`, `role`,`status`)VALUES(?,?,?,?,?,?,?,?,?,?)");
-                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword,$otp,$code, $role,$status]);
+                   $stmt = $this->pdo->prepare("INSERT INTO `tbl_user` (`firstname`,`middlename`,`lastname`, `email`, `username`, `password`,`otp`,`code`,`photo`, `role`,`status`)VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword,$otp,$code,$photo, $role,$status]);
                   if($true == true){
                    	 return true;
 
@@ -165,13 +165,13 @@ require 'connection.php';
 
 
            // registration for admin
-          public function add_admin($fullname,$middlename,$lastname, $emailaddress, $username, $password,  $image){
+          public function add_admin($fullname,$middlename,$lastname, $emailaddress, $username, $password,  $photo){
 
                   
                    $role = "admin";
                    $hashpassword = password_hash($password, PASSWORD_DEFAULT);
                    $stmt = $this->pdo->prepare("INSERT INTO `tbl_admin` (`firstname`,`middlename`,`lastname`, `email`, `username`, `password`,`photo`, `role`)VALUES(?,?,?,?,?,?,?,?)");
-                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword, $image, $role]);
+                   $true = $stmt->execute([$fullname,$middlename,$lastname, $emailaddress, $username, $hashpassword, $photo, $role]);
 
 
                  
@@ -246,7 +246,7 @@ require 'connection.php';
 
 
 
-          // get all category
+          // get all User
               
         public function getalluser(){
               $query = $this->pdo->prepare("SELECT * FROM `tbl_user` ORDER BY id  DESC");
@@ -255,7 +255,19 @@ require 'connection.php';
 
         }
 
-          // end get all category
+          // end get all User
+
+
+          // get all Admin
+              
+        public function admin(){
+              $query = $this->pdo->prepare("SELECT * FROM `tbl_admin` ORDER BY id  DESC");
+               $query->execute();
+               return $query->fetchAll();
+
+        }
+
+          // end get all Admin
 
         // check email
 
@@ -303,39 +315,39 @@ require 'connection.php';
              // end of Change password
 
 
-                  // insert otp code in database
-        public function sending_code($otp,$code){
+        //           // insert otp code in database
+        // public function sending_code($otp,$code){
 
-          $sql = "UPDATE `tbl_user` SET  `otp` = ? WHERE   code = ? " ;
-           $update = $this->pdo->prepare($sql)->execute([$otp,$code]);
-             if ($update == true) {
-                 return true;
-              } else {
-                 return false;
-            }
+        //   $sql = "UPDATE `tbl_user` SET  `otp` = ? WHERE   code = ? " ;
+        //    $update = $this->pdo->prepare($sql)->execute([$otp,$code]);
+        //      if ($update == true) {
+        //          return true;
+        //       } else {
+        //          return false;
+        //     }
 
-         }
-         // end of insert otp code in database
-
-
+        //  }
+        //  // end of insert otp code in database
 
 
 
-            // update or verify email status set to = 1
-            public function verify($otp, $code){
-              $sql = "UPDATE `tbl_user` SET  `status` = 1, `otp` = '' WHERE code = ?";
-               $update = $this->pdo->prepare($sql)->execute([$otp, $code]);
-                 if ($update == true) {
-                     return true;
-                  } else {
-                     return false;
-                }
+
+
+            // // update or verify email status set to = 1
+            // public function verify($otp, $code){
+            //   $sql = "UPDATE `tbl_user` SET  `status` = 1, `otp` = '' WHERE code = ?";
+            //    $update = $this->pdo->prepare($sql)->execute([$otp, $code]);
+            //      if ($update == true) {
+            //          return true;
+            //       } else {
+            //          return false;
+            //     }
                
            
 
-                }
+            //     }
 
-                 // End of verification
+            //      // End of verification
         
 
       

@@ -103,6 +103,17 @@
             <span class="pass-error"></span>
                       </div> 
 <h6> Password must contain at least one number and one uppercase and one special character, and at least 8 or more characters</h6>
+
+ <div class="row">
+             <div class="col-md-6">
+               <div class="form-group">
+                  <label>Upload Image</label>
+                  <img  id="imgPlaceholder" src="https://cdn-icons-png.flaticon.com/512/921/921359.png" width="150px" height="150px" style="border:1px solid gray;margin-bottom: 3px;">
+                  <input type="file"  accept=".jpg, .png, .gif" id="chooseFile" class="form-control" alt="chooseFile"  name="">
+                  <span class="pic-error"></span>
+               </div>
+           </div>
+        </div>
            <div class="btn form-controlbtn-user btn-block">
                   <button type="button" class="btn btn-primary" value="Submit" id="btn-submit">Submit</button>
                </div>
@@ -220,6 +231,10 @@
               console.log('==========password==========')
               console.log(password);
 
+              const chooseFile = document.querySelector('input[alt=chooseFile]').value;
+              console.log('==========chooseFile==========')
+              console.log(chooseFile);
+
 
           function isValidFullname(){            
              var pattern = /^[a-z A-Z ]+$/;
@@ -251,7 +266,7 @@
 
              };
 
-          }
+          };
 
           function isValidmiddlename(){
              
@@ -310,7 +325,7 @@ last_name             }else if(last_name === ""){
 
              };
 
-          }
+          };
 
 
             function isValidUsername(){
@@ -344,7 +359,7 @@ last_name             }else if(last_name === ""){
 
                };
 
-            }
+            };
 
            function isValidEmail(){
              
@@ -377,7 +392,7 @@ last_name             }else if(last_name === ""){
 
                  };
 
-              }
+              };
 
 
            function isValidPassword(){
@@ -411,13 +426,33 @@ last_name             }else if(last_name === ""){
 
                  };
 
-              }
+              };
+
+              function isValidPhoto(){
+               if($("#chooseFile").val() === ""){
+                  $("#chooseFile").addClass("is-invalid");
+                  $(".pic-error").html("Please Upload Photo");
+                  $(".pic-error").css({"color":"red", "font-size":"14px"});
+                  return false;
+
+               }else{
+
+                  $("#chooseFile").removeClass("is-invalid").addClass("is-valid");
+                   $(".pic-error").css({"display":"none"});
+                    return true;
+                 }
+           
+
+             };
+
+
 
 
             isValidFullname();
             isValidEmail();
             isValidUsername();
             isValidPassword();
+            isValidPhoto();
 
             var data = new FormData(this.form);
 
@@ -427,9 +462,10 @@ last_name             }else if(last_name === ""){
             data.append('emailaddress', emailaddress)
             data.append('username', username)
             data.append('password', password)
+            data.append('photo', $('#chooseFile')[0].files[0]);
 
 
-            if(isValidFullname() === true  && isValidmiddlename() === true && isValidlastname() === true  && isValidEmail() === true && isValidUsername() === true && isValidPassword() === true){
+            if(isValidFullname() === true  && isValidmiddlename() === true && isValidlastname() === true  && isValidEmail() === true && isValidUsername() === true && isValidPassword() === true && isValidPhoto() === true){
 
                  $.ajax({
 
@@ -544,6 +580,21 @@ last_name             }else if(last_name === ""){
       });
    
   }
+  </script>
+
+     <script>
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('#imgPlaceholder').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]); // convert to base64 string
+      }
+    }
+    $("#chooseFile").change(function () {
+      readURL(this);
+    });
   </script>
 
 </body>

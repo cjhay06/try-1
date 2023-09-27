@@ -60,7 +60,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="home">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -137,14 +137,10 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <h6 class="collapse-header">Other Screens:</h6>
+                        <a class="collapse-item" href="admin_tables">Admin Tables</a>
+                        <a class="collapse-item" href="user_tables">User Tables</a>
+                       
                     </div>
                 </div>
             </li>
@@ -156,12 +152,7 @@
                     <span>Charts</span></a>
             </li>
 
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="user_tables">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>User Table</span></a>
-            </li>
+           
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -402,11 +393,13 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>Photo</th>
                                             <th>First Name</th>
                                             <th>Middle Name</th>
                                             <th>Last Name</th>
                                             <th>User Name</th>
                                             <th>Email</th>
+                                            <th>Action</th>
                                             
                                         </tr>
                                     </thead>
@@ -414,11 +407,13 @@
                                     <tbody>
                                         <?php foreach($getalluser as $row){ ?>
                                         <tr>
+                                            <th><img src="<?= $row['photo'] ;?>" width="50" height="50"></th>
                                             <td><?= $row['firstname'] ;?></td>
                                             <td><?= $row['middlename'] ;?></td>
                                             <td><?= $row['lastname'] ;?></td>
                                             <td><?= $row['username'] ;?></td>
                                             <td><?= $row['email'] ;?></td>
+                                            <th><button type="button" class="btn btn-primary btn-sm btn-editcat" data-id="<?php echo $row['id'] ;?>">Edit</button> <button type="button" class="btn btn-danger btn-sm btn-delerecat" data-del="<?php echo $row['id'] ;?>">Delete</button></th>
                                             
                                         </tr>
                                         <?php  } ?>
@@ -470,7 +465,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="logout">Logout</a>
                 </div>
             </div>
         </div>

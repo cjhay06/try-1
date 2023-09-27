@@ -71,7 +71,7 @@
                  <label>Insert Code</label>
 
 
-                  <input type="text" class="form-control" id="otp" value="" name="otp"  placeholder="Please enter Code"   required>
+                  <input type="text" class="form-control" id="otp" value="" name="otp" maxlength="6"  placeholder="Please enter Code"   required>
                   <span class="otp-error"></span>
                                  <div class="form-group mt-2">
 
