@@ -335,7 +335,9 @@
                         </div>
                     </div>
                 
-
+ <?php include "modal/admin_modal.php";?>
+  <?php include "modal/edit_modal.php";?>
+         
                 </div>
                 <!-- /.container-fluid -->
 
@@ -384,7 +386,50 @@
     </div>
 
 
- <?php require_once 'modal/admin_modal.php';?>
+ 
+
+   <script>
+            
+       $(document).ready(function() {   
+           load_data();    
+           var count = 1; 
+           function load_data() {
+               $(document).on('click', '.btn-editcat', function() {
+                  $('#editModal').modal('show');
+                    var id = $(this).data("id");
+                    console.log(id);
+                      get_delId(id); //argument    
+             
+               });
+            }
+
+             function get_delId(id) {
+                  $.ajax({
+                      type: 'POST',
+                      url: '../config/row_category.php',
+                      data: {
+                          id: id
+                      },
+                      dataType: 'json',
+                      success: function(response2) {
+                      console.log(response2);
+                      $('#edit_categoryid').val(response2.id);
+                      $('#edit_firstname').val(response2.firstname);
+                      $('#edit_middlename').val(response2.middlename);
+                      $('#edit_lastname').val(response2.lastname);
+                      $('#edit_emailaddress').val(response2.emailaddress);
+                      $('#edit_username').val(response2.username);
+                      $('#edit_password').val(response2.password);
+
+                   }
+                });
+             }
+       
+       });
+        
+  </script>
+
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

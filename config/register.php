@@ -18,7 +18,7 @@
 
   	    $username = $_POST['username'];
   	    $password = $_POST['password'];
-        $password = $_POST['password'];
+       
 
         $files = addslashes(file_get_contents($_FILES['photo']['tmp_name']));
         $photo ="../uploads/". addslashes($_FILES['photo']['name']);

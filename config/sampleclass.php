@@ -350,10 +350,33 @@ require 'connection.php';
             //      // End of verification
         
 
+        public function edit_admin($firstname,$middlename,$lastname,$emailaddress,$username,$password){
+            $query = "UPDATE `tbl_admin` SET  `firstname` = ?, `middlename` = ?, `lastname` = ?, `email` = ?,`username` = ?, `password` = ? WHERE id = ?";
+             $update = $this->pdo->prepare($query)->execute([$firstname,$middlename,$lastname,$emailaddress,$username,$password]);
+            if($update == true){
+               return true;
+            }else{
+              return false;
+            }
+
+          }
+
+        // end edit category
+
+
+    //row category
+
+        public function row_category($id){
+            $query = $this->pdo->prepare("SELECT * FROM `tbl_admin` WHERE id  = ?");
+            $query->execute([$id]);
+            $row = $query->fetch();
+            echo json_encode($row);
+
+        }
+
+
+        // end row category
       
-
-
-
         
 
 }
