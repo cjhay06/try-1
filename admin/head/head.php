@@ -12,10 +12,12 @@
     
     $getsessionID = trim($_SESSION['userid']);
     $admin = $conn->fetch_adminsessionId($getsessionID);
-    $getalluser = $conn->getallUsers();
+    $countalluser = $conn->countalluser();
     $getallrespondent = $conn->getallRespondents();
     $getallAdmin = $conn->getallAdmin();
     $getalladmin = $conn->admin();
+    $getalluser = $conn->getalluser();
+    
   
 
   }

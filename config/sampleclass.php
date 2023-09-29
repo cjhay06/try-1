@@ -210,7 +210,7 @@ require 'connection.php';
 
            // count all users
               
-        public function getallUsers(){
+        public function countalluser(){
            $query = $this->pdo->prepare("SELECT COUNT(id) as count_id FROM tbl_user");
                $query->execute();
                return $query->fetchAll();
@@ -364,7 +364,7 @@ require 'connection.php';
         // end edit category
 
 
-    //row category
+    //row admin
 
         public function row_category($id){
             $query = $this->pdo->prepare("SELECT * FROM `tbl_admin` WHERE id  = ?");
@@ -375,7 +375,24 @@ require 'connection.php';
         }
 
 
-        // end row category
+        // end row admin
+
+         //row user
+
+        public function row_category1($id){
+            $query = $this->pdo->prepare("SELECT * FROM `tbl_user` WHERE id  = ?");
+            $query->execute([$id]);
+            $row = $query->fetch();
+            echo json_encode($row);
+
+        }
+
+
+        // end row user
+
+
+
+   
       
         
 

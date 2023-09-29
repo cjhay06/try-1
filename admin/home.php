@@ -303,7 +303,7 @@
                                                 USERS</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">  <?php
 
-                                             foreach($getalluser as $row){ ?>
+                                             foreach($countalluser as $row){ ?>
 
                                                 <?= $row['count_id'] ;?>
 

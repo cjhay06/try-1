@@ -1,55 +1,4 @@
-<?php 
-   session_start();
-  require_once "../config/sampleclass.php";
-
-  if(!isset($_SESSION['logged_in'])){
-     
-     header("location:index.php");
-
-  }else{
-   
-    $conn = new class_php();
-    
-    $getsessionID = trim($_SESSION['userid']);
-    $admin = $conn->fetch_adminsessionId($getsessionID);
-    $getalluser = $conn->getallUser();
-    
-  
-
-  }
-
-
-
-?>
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>try</title>
-
-    <!-- Custom fonts for this template -->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
-</head>
+<?php require_once 'head/head.php';?>
 
 <body id="page-top">
 
@@ -247,30 +196,7 @@
                                         <span class="font-weight-bold">A new monthly report is ready to download!</span>
                                     </div>
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
+                               
                         </li>
 
                         <!-- Nav Item - Messages -->
@@ -299,43 +225,8 @@
                                         <div class="small text-gray-500">Emily Fowler · 58m</div>
                                     </div>
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                              
+                                
                             </div>
                         </li>
 
@@ -375,18 +266,26 @@
                     </ul>
 
                 </nav>
+                 
+
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Admin Tables</h1>
+                    
+
                    
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
+
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables</h6>
+                          
+
+
+
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -413,7 +312,7 @@
                                             <td><?= $row['lastname'] ;?></td>
                                             <td><?= $row['username'] ;?></td>
                                             <td><?= $row['email'] ;?></td>
-                                            <th><button type="button" class="btn btn-primary btn-sm btn-editcat" data-id="<?php echo $row['id'] ;?>">Edit</button> <button type="button" class="btn btn-danger btn-sm btn-delerecat" data-del="<?php echo $row['id'] ;?>">Delete</button></th>
+                                            <th><button type="button" class="btn btn-primary btn-sm btn-edituser" data-id="<?php echo $row['id'] ;?>">Edit</button> <button type="button" class="btn btn-danger btn-sm btn-delerecat" data-del="<?php echo $row['id'] ;?>">Delete</button></th>
                                             
                                         </tr>
                                         <?php  } ?>
@@ -423,7 +322,10 @@
                             </div>
                         </div>
                     </div>
-
+                
+ <?php include "modal/admin_modal.php";?>
+  <?php include "modal/edit_user.php";?>
+         
                 </div>
                 <!-- /.container-fluid -->
 
@@ -471,6 +373,52 @@
         </div>
     </div>
 
+
+ 
+
+   <script>
+            
+       $(document).ready(function() {   
+           load_data();    
+           var count = 1; 
+           function load_data() {
+               $(document).on('click', '.btn-edituser', function() {
+                  $('#editModal').modal('show');
+                    var id = $(this).data("id");
+                    console.log(id);
+                      get_delId(id); //argument    
+             
+               });
+            }
+
+             function get_delId(id) {
+                  $.ajax({
+                      type: 'POST',
+                      url: '../config/row_category1.php',
+                      data: {
+                          id: id
+                      },
+                      dataType: 'json',
+                      success: function(response2) {
+                      console.log(response2);
+                      $('#edit_categoryid').val(response2.id);
+                      $('#edit_firstname').val(response2.firstname);
+                      $('#edit_middlename').val(response2.middlename);
+                      $('#edit_lastname').val(response2.lastname);
+                      $('#edit_email').val(response2.email);
+                      $('#edit_username').val(response2.username);
+                      $('#edit_password').val(response2.password);
+
+                   }
+                });
+             }
+       
+       });
+        
+  </script>
+
+
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -487,6 +435,15 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
+
 
 </body>
 

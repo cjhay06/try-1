@@ -417,7 +417,7 @@
                       $('#edit_firstname').val(response2.firstname);
                       $('#edit_middlename').val(response2.middlename);
                       $('#edit_lastname').val(response2.lastname);
-                      $('#edit_emailaddress').val(response2.emailaddress);
+                      $('#edit_email').val(response2.email);
                       $('#edit_username').val(response2.username);
                       $('#edit_password').val(response2.password);
 
