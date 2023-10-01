@@ -13,41 +13,41 @@
                <div class="row g-3">
   <div class="col -md-6">
      <label for="inputCity" class="form-label">First Name</label>
-    <input type="text" class="form-control" placeholder="First name" id="edit_firstname" name="firstname" aria-label="First name" alt="firstname">
+    <input type="text" class="form-control" placeholder="First name" id="edit_firstname" name="edit_firstname" onkeyup="textonly(this)" aria-label="First name" alt="firstname">
   </div>
   <div class="col -md-6">
      <label for="inputCity" class="form-label">Middle Name</label>
-    <input type="text" class="form-control" placeholder="Middle name" id="edit_middlename" name="middlename"  aria-label="First name">
+    <input type="text" class="form-control" placeholder="Middle name" id="edit_middlename" name="edit_middlename" onkeyup="textonly(this)"  aria-label="First name">
   </div>
 </div>
 <div class="row g-3">
   <div class="col-md-6">
     <br>
      <label for="inputCity" class="form-label">Last Name</label>
-    <input type="text" class="form-control" placeholder="Last name" id="edit_lastname" name="lastname"  aria-label="Middle name">
+    <input type="text" class="form-control" placeholder="Last name" id="edit_lastname" name="edit_lastname"  onkeyup="textonly(this)" aria-label="Middle name">
   </div>
   <div class="col-md-6">
     <br>
      <label for="inputCity" class="form-label">Email</label>
-    <input type="text" class="form-control" placeholder="Email" id="edit_email" name="email"  aria-label="Last name">
+    <input type="email" class="form-control" placeholder="Email" id="edit_email" name="edit_email"  aria-label="Last name">
   </div>
 </div>
 <div class="row g-3">
   <div class="col-md-6">
     <br>
      <label for="inputCity" class="form-label">User Name</label>
-    <input type="text" class="form-control" placeholder="User name" id="edit_username" name="username" aria-label="User name">
+    <input type="text" class="form-control" placeholder="User name" id="edit_username" name="edit_username" aria-label="User name">
   </div>
   <div class="col-md-6">
     <br>
      <label for="inputCity" class="form-label">Password</label>
-    <input type="password" class="form-control" placeholder="Password" id="edit_password" name="password" aria-label="Last name">
+    <input type="password" class="form-control" placeholder="Password" id="edit_password" name="edit_password" aria-label="Last name" autocomplete="off">
   </div>
 </div>
             </div>
           </div>
           <div class="modal-footer">
-            <input type="hidden" id="edit_categoryid" name="">
+            <input type="hidden" id="edit_id" name="edit_id">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" id="btn-editcategory">Update</button>
           </div>
@@ -62,21 +62,26 @@
           btn.addEventListener('click', (e) => {
 
              
-             const firstname = document.querySelector('input[id=firstname]').value;
+             const edit_firstname = document.querySelector('input[id=edit_firstname]').value;
              console.log("==============firstname===========");
-             console.log(firstname);
+             console.log(edit_firstname);
 
              const category_id = document.querySelector('input[id=edit_categoryid]').value;
              console.log("==============category_id===========");
              console.log(category_id);
 
              var row = new FormData(this.form);
-                 row.append('firstname', firstname);
-                 row.append('category_id', category_id);
+                 row.append('edit_firstname', edit_firstname);
+                 row.append('edit_middlename', edit_middlename);
+                 row.append('edit_lastname', edit_lastname);
+                 row.append('edit_email', edit_email);
+                 row.append('edit_username', edit_username);
+                 row.append('edit_password', edit_password);
+                 row.append('edit_id', edit_id);
 
 
              function isValidCategory2(){
-               if($("#firstname").val() === ""){
+               if($("#edit_firstname").val() === ""){
                   $("#firstname").addClass("is-invalid");
                   $(".cat2-error").html("Please input category");
                   $(".cat2-error").css({"color":"red", "font-size":"14px"});
@@ -123,3 +128,25 @@
          });
        });
     </script>
+
+
+  
+ <script type="text/javascript">
+                function textonly(input) {
+
+                    var text = /[^a-z ,]/gi;
+                    input.value = input.value.replace(text,"");
+                    // body...
+                }
+            </script>
+
+
+
+            <script type="text/javascript">
+                function numberonly(input) {
+
+                    var num = /[0-9]/gi;
+                    input.value = input.value.replace(num,"");
+                    // body...
+                }
+            </script>

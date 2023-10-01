@@ -350,16 +350,16 @@ require 'connection.php';
             //      // End of verification
         
 
-        public function edit_admin($firstname,$middlename,$lastname,$emailaddress,$username,$password){
-            $query = "UPDATE `tbl_admin` SET  `firstname` = ?, `middlename` = ?, `lastname` = ?, `email` = ?,`username` = ?, `password` = ? WHERE id = ?";
-             $update = $this->pdo->prepare($query)->execute([$firstname,$middlename,$lastname,$emailaddress,$username,$password]);
-            if($update == true){
-               return true;
-            }else{
-              return false;
-            }
+        // public function edit_admin($edit_firstname,$edit_middlename,$edit_lastname,$edit_email,$edit_username,$edit_password){
+        //     $query = "UPDATE `tbl_admin` SET  `firstname` = ?, `middlename` = ?, `lastname` = ?, `email` = ?,`username` = ?, `password` = ? WHERE id = ?";
+        //      $update = $this->pdo->prepare($query)->execute([$edit_firstname,$edit_middlename,$edit_lastname,$edit_email,$edit_username,$edit_password]);
+        //     if($update == true){
+        //        return true;
+        //     }else{
+        //       return false;
+        //     }
 
-          }
+        //   }
 
         // end edit category
 
@@ -392,7 +392,34 @@ require 'connection.php';
 
 
 
-   
+        // public function edit_category($firstname, $id){
+        //     $query = "UPDATE `tbl_admin` SET  `firstname` = ? WHERE id = ?";
+        //      $update = $this->pdo->prepare($query)->execute([$firstname, $id]);
+        //     if($update == true){
+        //        return true;
+        //     }else{
+        //       return false;
+        //     }
+
+        //   }
+
+
+ public function edit_profile($fname,$mname,$lname, $eemail, $uname,$photo,$id){
+  
+
+           $query = "UPDATE `tbl_admin` SET  `firstname` = ?,`middlename` = ?,`lastname` = ?,`email` = ?,`username` = ?,`photo` = ? WHERE id = ?";
+             $update = $this->pdo->prepare($query)->execute([$fname,$mname,$lname, $eemail, $uname,$photo,$id]);
+            if($update == true){
+               return true;
+            }else{
+              return false;
+            }
+
+          }
+
+        
+
+ 
       
         
 

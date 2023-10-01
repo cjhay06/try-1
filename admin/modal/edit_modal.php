@@ -47,7 +47,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <input type="hidden" id="edit_categoryid" name="">
+            <input type="text" id="edit_categoryid" name="">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" id="btn-editcategory">Update</button>
           </div>
@@ -62,46 +62,253 @@
           btn.addEventListener('click', (e) => {
 
              
-             const firstname = document.querySelector('input[id=firstname]').value;
-             console.log("==============firstname===========");
-             console.log(firstname);
+              const edit_firstname = document.querySelector('input[alt=edit_firstname]').value;
+              console.log('==========fullname==========')
+              console.log(edit_firstname);
 
-             const category_id = document.querySelector('input[id=edit_categoryid]').value;
-             console.log("==============category_id===========");
-             console.log(category_id);
+               const edit_middlename = document.querySelector('input[alt=edit_middlename]').value;
+              console.log('==========middlename==========')
+              console.log(edit_middlename);
 
-             var row = new FormData(this.form);
-                 row.append('firstname', firstname);
-                 row.append('category_id', category_id);
+               const edit_lastname = document.querySelector('input[alt=edit_lastname]').value;
+              console.log('==========lastname==========')
+              console.log(edit_lastname);
+
+              const edit_email = document.querySelector('input[alt=edit_email]').value;
+              console.log('==========emailaddress==========')
+              console.log(edit_email);
+
+              const edit_username = document.querySelector('input[alt=edit_username]').value;
+              console.log('==========username==========')
+              console.log(edit_username);
+
+              const edit_password = document.querySelector('input[alt=edit_password]').value;
+              console.log('==========password==========')
+              console.log(edit_password);
+
+              const chooseFile = document.querySelector('input[alt=chooseFile]').value;
+              console.log('==========chooseFile==========')
+              console.log(chooseFile);
 
 
-             function isValidCategory2(){
-               if($("#firstname").val() === ""){
-                  $("#firstname").addClass("is-invalid");
-                  $(".cat2-error").html("Please input category");
-                  $(".cat2-error").css({"color":"red", "font-size":"14px"});
-                  return false;
+          function isValidFullname(){            
+             var pattern = /^[a-z A-Z ]+$/;
+             var edit_firstname = $("#edit_firstname").val();
+             if(pattern.test(edit_firstname) && edit_firstname !== ""){
+                $("#edit_firstname").removeClass("is-invalid").addClass("is-valid");
+                $(".fname-error").css({
+                 "color": "green",
+                 "font-size": "14px",
+                 "display": "none"
+               });
+                return true;
 
-               }else{
-
-                  $("#edit_category").removeClass("is-invalid").addClass("is-valid");
-                   $(".cat2-error").css({"display":"none"});
-                    return true;
-                 }
-           
+             }else if(full_name === ""){
+               $("#full_name").removeClass("is-valid").addClass("is-invalid");
+               $(".fname-error").html("Required First Name");
+                 $(".fname-error").css({
+                   "color": "red",
+                   "font-size": "14px"
+                 });
+             }else{
+               $("#full_name").removeClass("is-valid").addClass("is-invalid");
+               $(".fname-error").html("Please input Character Only");
+                 $(".fname-error").css({
+                 "color": "red",
+                 "font-size": "14px",
+                 "display": "block"
+               });
 
              };
 
-             isValidCategory2();
+          };
+
+          function isValidmiddlename(){
+             
+             var pattern = /^[a-z A-Z ]+$/;
+             var  edit_middlename = $("#edit_middlename").val();
+             if(pattern.test(edit_middlename) && edit_middlename !== ""){
+                $("#middle_name").removeClass("is-invalid").addClass("is-valid");
+                $(".middle-error").css({
+                 "color": "green",
+                 "font-size": "14px",
+                 "display": "none"
+               });
+                return true;
+
+    
+             }else{
+               $("#middle_name").removeClass("is-valid").addClass("is-valid");
+               
+                 return true;
+                 
+               };
+
+             };
+
+          
 
 
-               if(isValidCategory2() === true){
 
-                 $.ajax({
+          function isValidlastname(){
+             
+             var pattern = /^[a-z A-Z ]+$/;
+             var edit_lastname = $("#edit_lastname").val();
+             if(pattern.test(edit_lastname) && edit_lastname !== ""){
+                $("#edit_lastname").removeClass("is-invalid").addClass("is-valid");
+                $(".lastname-error").css({
+                 "color": "green",
+                 "font-size": "14px",
+                 "display": "none"
+               });
+                return true;
+           }else if(edit_lastname === ""){
+               $("#edit_lastname").removeClass("is-valid").addClass("is-invalid");
+               $(".lastname-error").html("Required Last Name");
+                 $(".lastname-error").css({
+                   "color": "red",
+                   "font-size": "14px"
+                 });
+             }else{
+               $("#edit_lastname").removeClass("is-valid").addClass("is-invalid");
+               $(".lastname-error").html("Please input Character Only");
+                 $(".lastname-error").css({
+                 "color": "red",
+                 "font-size": "14px",
+                 "display": "block"
+               });
 
-                         url: '../config/edit_category.php',
+             };
+
+          };
+
+
+            function isValidUsername(){
+           
+               var pattern = /^[a-z A-Z 0-9 #_.]+$/;
+               var edit_username = $("#edit_username").val();
+               if(pattern.test(edit_username) && edit_username !== ""){
+                  $("#edit_username").removeClass("is-invalid").addClass("is-valid");
+                  $(".uname-error").css({
+                   "color": "green",
+                   "font-size": "14px",
+                   "display": "none"
+                 });
+                  return true;
+
+               }else if(edit_username === ""){
+                 $("#edit_username").removeClass("is-valid").addClass("is-invalid");
+                 $(".uname-error").html("Required Username");
+                   $(".uname-error").css({
+                     "color": "red",
+                     "font-size": "14px"
+                   });
+               }else{
+                 $("#edit_username").removeClass("is-valid").addClass("is-invalid");
+                 $(".uname-error").html("Please input Character Only");
+                   $(".uname-error").css({
+                   "color": "red",
+                   "font-size": "14px",
+                   "display": "block"
+                 });
+
+               };
+
+            };
+
+           function isValidEmail(){
+             
+                 var pattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+                 var edit_email = $("#edit_email").val();
+                 if(pattern.test(edit_email) && edit_email !== ""){
+                    $("#edit_email").removeClass("is-invalid").addClass("is-valid");
+                    $(".email-error").css({
+                     "color": "green",
+                     "font-size": "14px",
+                     "display": "none"
+                   });
+                    return true;
+
+                 }else if(edit_email === ""){
+                   $("#edit_email").removeClass("is-valid").addClass("is-invalid");
+                   $(".email-error").html("Required Email address");
+                     $(".email-error").css({
+                       "color": "red",
+                       "font-size": "14px"
+                     });
+                 }else{
+                   $("#edit_email").removeClass("is-valid").addClass("is-invalid");
+                   $(".email-error").html("Please input Unique Email Address");
+                     $(".email-error").css({
+                     "color": "red",
+                     "font-size": "14px",
+                     "display": "block"
+                   });
+
+                 };
+
+              };
+
+
+           function isValidPassword(){
+              
+                 var pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+=]).{8,}$/
+                 var edit_password = $("#edit_password").val();
+                 if(pattern.test(edit_password) && edit_password !== ""){
+                    $("#edit_password").removeClass("is-invalid").addClass("is-valid");
+                    $(".pass-error").css({
+                     "color": "green",
+                     "font-size": "14px",
+                     "display": "none"
+                   });
+                    return true;
+
+                 }else if(edit_password === ""){
+                   $("#edit_password").removeClass("is-valid").addClass("is-invalid");
+                   $(".pass-error").html("Please Enter Password");
+                     $(".pass-error").css({
+                       "color": "red",
+                       "font-size": "14px"
+                     });
+                 }else{
+                   $("#edit_password").removeClass("is-valid").addClass("is-invalid");
+                   $(".pass-error").html("Must contain at least one number and one uppercase and one special character, and at least 8 or more characters");
+                     $(".pass-error").css({
+                     "color": "red",
+                     "font-size": "14px",
+                     "display": "block"
+                   });
+
+                 };
+
+              };
+
+                    isValidlastname();
+                    isValidmiddlename();
+                    isValidFullname();
+                    isValidEmail();
+                    isValidUsername();
+                    isValidPassword();
+           
+
+            
+                var row = new FormData(this.form);
+                 row.append('edit_firstname', firstname);
+                 row.append('edit_middlename', middlename);
+                 row.append('edit_lastname', lastname);
+                 row.append('edit_email', email);
+                 row.append('edit_username', usernames);
+                 row.append('edit_password', password);
+
+
+                   if(isValidFullname() === true  &&isValidmiddlename() === true  &&isValidlastname() === true  && isValidEmail() === true && isValidUsername() === true && isValidPassword() === true && isValidPhoto() === true){
+
+
+                    $.ajax({
+
+                         url: '../config/edit_admin.php',
                           type: "POST",
-                          data: row,
+                          data: data,
                           processData: false,
                           contentType: false,
                           async: false,
@@ -109,7 +316,7 @@
                       success: function(res){
                         console.log('==================res===========');
                         console.log(res);
-                        $('#msg2').html(res);
+                        $('#msg').html(res);
 
                     },error: function(res){
                       console.log("Failed Insert");
@@ -119,7 +326,11 @@
 
              }
 
+          });
+     });
+                  
 
-         });
-       });
+
+
+
     </script>

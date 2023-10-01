@@ -1,5 +1,5 @@
 <?php require_once 'head/head.php';?>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -21,7 +21,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="home">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -257,7 +257,9 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                  <span type="button" class="" data-toggle="modal" data-target="#profile_edit">
+                                                                    Profile
+                                                                    </span>
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -289,7 +291,7 @@
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
-
+ <?php include "modal/profile_modal.php";?>
                     <!-- Content Row -->
                     <div class="row">
 
@@ -376,6 +378,9 @@
                         
                     </div>
 
+
+                    
+
                    
             
 
@@ -405,6 +410,9 @@
             </div>
         </div>
     </div>
+
+
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

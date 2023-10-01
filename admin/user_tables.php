@@ -94,13 +94,7 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
+        
            
 
             <!-- Divider -->
@@ -237,15 +231,17 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php foreach ($admin as  $row){echo ''. $row['firstname'];}; ?></span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                              <img class="img-profile rounded-circle"
+                                    src="<?php foreach ($admin as  $row){echo ''. $row['photo'];}; ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                      <span type="button" class="" data-toggle="modal" data-target="#profile_edit">
+                                                                    Profile
+                                                                    </span>
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -266,7 +262,7 @@
                     </ul>
 
                 </nav>
-                 
+        <?php include "modal/profile_modal.php";?>          
 
                 <!-- End of Topbar -->
 
@@ -401,7 +397,7 @@
                       dataType: 'json',
                       success: function(response2) {
                       console.log(response2);
-                      $('#edit_categoryid').val(response2.id);
+                      $('#edit_id').val(response2.edit_id);
                       $('#edit_firstname').val(response2.firstname);
                       $('#edit_middlename').val(response2.middlename);
                       $('#edit_lastname').val(response2.lastname);
