@@ -186,7 +186,7 @@
                  "display": "none"
                });
                 return true;
-last_name             }else if(last_name === ""){
+           }else if(last_name === ""){
                $("#last_name").removeClass("is-valid").addClass("is-invalid");
                $(".lastname-error").html("Required Full Name");
                  $(".lastname-error").css({

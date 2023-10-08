@@ -20,10 +20,10 @@
                                
                               
 
-                                <img id="imgPlaceholder" class="img-profile rounded-circle"
+                                <img id="edit_photo" class="img-profile rounded-circle"
                                     src="<?php foreach ($admin as  $row){echo ''. $row['photo'];}; ?>" width="300px" height="300px">
-                                    <input type="file"  accept=".jpg, .png, .gif" id="chooseFile" class="form-control" alt="chooseFile"  name="">
-                  <span class="pic-error"></span>
+                                     <input type="file" accept=".jpg, .png, .gif" id="edit_pic" class="form-control" name="">
+                   <span class="pic2-error"></span>
 
                             
   <div class="col -md-6">
@@ -56,7 +56,7 @@
   <div class="col-md-6">
     <br>
      <label for="inputCity" class="form-label">User Name</label>
-    <input type="text" class="form-control" placeholder="User name" value="<?php foreach ($admin as  $row){echo ''. $row['username'];}; ?>" id="uname" name="uname" aria-label="User name">
+    <input type="text" class="form-control" placeholder="User name" value="<?php foreach ($admin as  $row){echo ''. $row['username'];}; ?>" id="uname" name="uname" aria-label="Username">
     <span class="username-error"></span>
   </div>
   <div class="col-md-6">
@@ -84,12 +84,12 @@
       if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-          $('#imgPlaceholder').attr('src', e.target.result);
+          $('#edit_photo').attr('src', e.target.result);
         }
         reader.readAsDataURL(input.files[0]); // convert to base64 string
       }
     }
-    $("#chooseFile").change(function () {
+    $("#edit_pic").change(function () {
       readURL(this);
     });
   </script>
@@ -124,6 +124,15 @@
              console.log("==============password===========");
              console.log(pword);
 
+             const default_img = $('#edit_photo').attr('src');
+             console.log("===============default_img==========");
+             console.log(default_img);
+
+             const photo = document.querySelector('input[id=edit_pic]').value;
+             console.log("===============photo==========");
+             console.log(photo);
+
+
           
 
 
@@ -138,8 +147,9 @@
                  row.append('lname', lname);
                  row.append('eemail', eemail);
                  row.append('uname', uname);
+                 row.append('default_img', default_img);
                  row.append('pword', pword);
-                row.append('photo', $('#chooseFile')[0].files[0]);
+               row.append('photo', $('#edit_pic')[0].files[0]);
                    row.append('id', id);
                 
 
@@ -242,7 +252,7 @@
                var uname = $("#uname").val();
                if(pattern.test(uname) && uname !== ""){
                   $("#uname").removeClass("is-invalid").addClass("is-valid");
-                  $(".username-error").css({
+                  $(".uname-error").css({
                    "color": "green",
                    "font-size": "14px",
                    "display": "none"
@@ -252,7 +262,7 @@
                }else if(uname === ""){
                  $("#uname").removeClass("is-valid").addClass("is-invalid");
                  $(".username-error").html("Required Username");
-                   $(".username-error").css({
+                   $(".uname-error").css({
                      "color": "red",
                      "font-size": "14px"
                    });
@@ -303,55 +313,55 @@
               };
 
 
-           function isValidPassword(){
+           // function isValidPassword(){
               
-                 var pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+=]).{8,}$/
-                 var pword = $("#pword").val();
-                 if(pattern.test(pword) && pword !== ""){
-                    $("#pword").removeClass("is-invalid").addClass("is-valid");
-                    $(".password-error").css({
-                     "color": "green",
-                     "font-size": "14px",
-                     "display": "none"
-                   });
-                    return true;
+           //       var pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+=]).{8,}$/
+           //       var pword = $("#pword").val();
+           //       if(pattern.test(pword) && pword !== ""){
+           //          $("#pword").removeClass("is-invalid").addClass("is-valid");
+           //          $(".password-error").css({
+           //           "color": "green",
+           //           "font-size": "14px",
+           //           "display": "none"
+           //         });
+           //          return true;
 
-                 }else if(pword === ""){
-                   $("#pword").removeClass("is-valid").addClass("is-invalid");
-                   $(".password-error").html("Please Enter Password");
-                     $(".password-error").css({
-                       "color": "red",
-                       "font-size": "14px"
-                     });
-                 }else{
-                   $("#pword").removeClass("is-valid").addClass("is-invalid");
-                   $(".password-error").html("Must contain at least one number and one uppercase and one special character, and at least 8 or more characters");
-                     $(".password-error").css({
-                     "color": "red",
-                     "font-size": "14px",
-                     "display": "block"
-                   });
+           //       }else if(pword === ""){
+           //         $("#pword").removeClass("is-valid").addClass("is-invalid");
+           //         $(".password-error").html("Please Enter Password");
+           //           $(".password-error").css({
+           //             "color": "red",
+           //             "font-size": "14px"
+           //           });
+           //       }else{
+           //         $("#pword").removeClass("is-valid").addClass("is-invalid");
+           //         $(".password-error").html("Must contain at least one number and one uppercase and one special character, and at least 8 or more characters");
+           //           $(".password-error").css({
+           //           "color": "red",
+           //           "font-size": "14px",
+           //           "display": "block"
+           //         });
 
-                 };
+           //       };
 
-              };
+           //    };
 
-              function isValidPhoto(){
-               if($("#chooseFile").val() === ""){
-                  $("#chooseFile").addClass("is-invalid");
-                  $(".pic-error").html("Please Upload Photo");
-                  $(".pic-error").css({"color":"red", "font-size":"14px"});
-                  return false;
+             //  function isValidPhoto(){
+             //   if($("#chooseFile").val() === ""){
+             //      $("#chooseFile").addClass("is-invalid");
+             //      $(".pic-error").html("Please Upload Photo");
+             //      $(".pic-error").css({"color":"red", "font-size":"14px"});
+             //      return false;
 
-               }else{
+             //   }else{
 
-                  $("#chooseFile").removeClass("is-invalid").addClass("is-valid");
-                   $(".pic-error").css({"display":"none"});
-                    return true;
-                 }
+             //      $("#chooseFile").removeClass("is-invalid").addClass("is-valid");
+             //       $(".pic-error").css({"display":"none"});
+             //        return true;
+             //     }
            
 
-             };
+             // };
 
 
 
@@ -361,15 +371,15 @@
               isValidlastname();
             isValidEmail();
             isValidUsername();
-            isValidPassword();
-            isValidPhoto();
+           
+           
             
 
 
              
 
 
-               if(isValidFirstname() === true  && isValidmiddlename() === true && isValidlastname() === true  && isValidEmail() === true && isValidUsername() === true && isValidPassword() === true && isValidPhoto() === true){
+               if(isValidFirstname() === true  && isValidmiddlename() === true && isValidlastname() === true  && isValidEmail() === true && isValidUsername() === true){
 
                  $.ajax({
 

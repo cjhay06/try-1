@@ -13,11 +13,21 @@
         $uname = $_POST['uname'];
         $pword = $_POST['pword'];
 
-        $files = addslashes(file_get_contents($_FILES['photo']['tmp_name']));
-        $photo ="../admin/uploads/". addslashes($_FILES['photo']['name']);
-        $file_size =  $_FILES['photo']['size'];
-        move_uploaded_file($_FILES["photo"]["tmp_name"], $_SERVER['DOCUMENT_ROOT']."/try-1/admin/uploads/" .   addslashes($_FILES["photo"]["name"]));
+        $default = htmlentities(strip_tags(stripcslashes($_POST['default_img'])));
 
+        $pic = htmlentities(strip_tags(stripcslashes(trim($_POST['photo']))));
+
+        if(!empty($pic)){
+           
+           $photo = $default;
+
+        }else{
+
+            $files = addslashes(file_get_contents($_FILES['photo']['tmp_name']));
+            $photo ="../admin/uploads/". addslashes($_FILES['photo']['name']);
+            $file_size =  $_FILES['photo']['size'];
+           move_uploaded_file($_FILES["photo"]["tmp_name"], $_SERVER['DOCUMENT_ROOT']."/try-1/admin/uploads/" .   addslashes($_FILES["photo"]["name"]));
+         }
         $id = $_POST['id'];
 
 
@@ -34,3 +44,5 @@
      }
 
  ?>
+
+   

@@ -6,7 +6,7 @@
 
   	  $conn = new class_php();
   	    $id = $_POST['id'];
-        $conn->row_category($id);
+        $conn->profile_row($id);
    
 
      }
